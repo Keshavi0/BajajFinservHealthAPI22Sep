@@ -41,6 +41,6 @@ app.get('/', (req, res) => {
 app.use("/bfhl",BFHL)
 
 
-app.listen(port,'0.0.0.0', () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
