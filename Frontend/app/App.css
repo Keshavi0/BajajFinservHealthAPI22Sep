@@ -1,0 +1,12 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Add your preferred font here */
+    background-color: #f7f7f7; /* Light background for the whole page */
+  }
+  
+  .container {
+    margin-top: 50px;
+  }
+  
+  textarea {
+    resize: none; /* Prevent resizing */
+  }
