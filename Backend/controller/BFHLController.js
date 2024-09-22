@@ -41,71 +41,70 @@ const BFHLGet = async (req, res) => {
 
 const BFHLPost = async (req, res) => {
   try {
-    const { data, file_b64 } = req.body;
+      const { data, file_b64 } = req.body;
 
-    if (!Array.isArray(data)) {
-      return res.status(400).json({
-        is_success: false,
-        message: 'Invalid input format. Expected an array.'
+      if (!Array.isArray(data)) {
+          return res.status(400).json({
+              is_success: false,
+              message: 'Invalid input format. Expected an array.'
+          });
+      }
+
+      const numbers = [];
+      const alphabets = [];
+      let highestAlphabet = '';
+      let file_valid = false;
+      let file_mime_type = null;
+      let file_size_kb = 0;
+
+      // Check for valid file if file_b64 is provided
+      if (file_b64) {
+          const buffer = Buffer.from(file_b64, 'base64');
+          file_size_kb = buffer.length / 1024; // size in KB
+
+          // Add logic to determine the MIME type
+          // This is a placeholder; you can use libraries like 'file-type' to determine the MIME type
+          file_mime_type = 'image/png'; // Example, replace with actual detection logic
+          file_valid = true; // Set this to true if the file is valid
+      }
+
+      data.forEach(item => {
+          if (/^[0-9]+$/.test(item)) {
+              numbers.push(item);
+          } else if (/^[a-zA-Z]$/.test(item)) {
+              alphabets.push(item);
+              if (!highestAlphabet || item.toLowerCase() > highestAlphabet.toLowerCase()) {
+                  highestAlphabet = item;
+              }
+          }
       });
-    }
 
-    const numbers = [];
-    const alphabets = [];
-    let highestAlphabet = '';
+      const response = {
+          is_success: true,
+          user_id: generateUserId(user.fullName, user.dob),
+          email: user.email,
+          roll_number: user.rollNumber,
+          numbers,
+          alphabets,
+          highest_alphabet: highestAlphabet ? [highestAlphabet] : [],
+          file_valid,
+      };
 
-    // Split numbers and alphabets
-    data.forEach(item => {
-      if (/^[0-9]+$/.test(item)) {
-        numbers.push(item);
-      } else if (/^[a-zA-Z]$/.test(item)) {
-        alphabets.push(item);
-        if (!highestAlphabet || item.toLowerCase() > highestAlphabet.toLowerCase()) {
-          highestAlphabet = item;
-        }
+      // Only add file information if the file is valid
+      if (file_valid) {
+          response.file_mime_type = file_mime_type;
+          response.file_size_kb = file_size_kb;
       }
-    });
 
-    // File processing (if base64 is provided)
-    let file_valid = false;
-    let file_mime_type = null;
-    let file_size_kb = null;
-
-    if (file_b64) {
-      const base64String = file_b64.split(',')[1]; // Remove metadata (data:image/png;base64,)
-      if (base64String) {
-        // Calculate file size in bytes
-        const base64Length = base64String.length;
-        const padding = (base64String.endsWith('==') ? 2 : base64String.endsWith('=') ? 1 : 0);
-        const fileSizeBytes = (base64Length * 3) / 4 - padding;
-        file_size_kb = (fileSizeBytes / 1024).toFixed(2); // Convert to KB and round to 2 decimal places
-
-        file_valid = true;
-        file_mime_type = file_b64.split(';')[0].split(':')[1]; // Extract MIME type (image/png, etc.)
-      }
-    }
-
-    const response = {
-      is_success: true,
-      user_id: generateUserId(user.fullName, user.dob),
-      email: user.email,
-      roll_number: user.rollNumber,
-      numbers,
-      alphabets,
-      highest_lowercase_alphabet: highestAlphabet ? [highestAlphabet] : [],
-      file_valid,
-      file_mime_type,
-      file_size_kb: file_size_kb || 0 // If file size is 0, return 0 instead of null
-    };
-
-    res.status(200).json(response);
+      res.status(200).json(response);
   } catch (error) {
-    res.status(500).json({
-      is_success: false,
-      message: 'An error occurred while processing the request.'
-    });
+      res.status(500).json({
+          is_success: false,
+          message: 'An error occurred while processing the request.'
+      });
   }
 };
+
 
 
 module.exports = { BFHLGet, BFHLPost };
