@@ -64,7 +64,7 @@ const Home: React.FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-2xl font-sans">
       <main className="bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-4xl font-bold mb-6 text-center text-indigo-700">Data Processing App</h1>
+        <h1 className="text-4xl font-bold mb-6 text-center text-indigo-700">Bajaj Finserv Health Data Processing App</h1>
         <form onSubmit={handleSubmit} className="mb-6 flex flex-col">
           <textarea
             value={input}
