@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -54,27 +54,27 @@ const Home: React.FC = () => {
   };
 
   const renderSection = (title: string, data: string[] | undefined) => (
-    <div className="bg-white p-3 rounded shadow">
-      <h3 className="font-medium text-blue-600">{title}:</h3>
+    <div className="bg-gray-200 p-3 rounded-lg shadow">
+      <h3 className="font-semibold text-teal-700">{title}:</h3>
       <p>{data && data.length > 0 ? data.join(', ') : 'None'}</p>
     </div>
   );
 
   return (
-    <div className="container mx-auto p-4 max-w-2xl">
+    <div className="container mx-auto p-4 max-w-2xl font-sans">
       <main>
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">Data Processing App</h1>
+        <h1 className="text-4xl font-bold mb-6 text-center text-teal-700">Data Processing App</h1>
         <form onSubmit={handleSubmit} className="mb-6">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='Enter JSON (e.g., { "data": ["A","C","z"] })'
-            className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
+            className="w-full p-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-black font-light bg-teal-50"
             rows={4}
           />
           <button 
             type="submit" 
-            className="mt-3 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+            className="mt-3 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition duration-300 ease-in-out"
             disabled={isLoading}
           >
             {isLoading ? 'Processing...' : 'Submit'}
@@ -84,12 +84,12 @@ const Home: React.FC = () => {
         {error && <p className="text-red-500 mb-4 p-3 bg-red-100 rounded-lg">{error}</p>}
 
         {response && (
-          <div className="bg-gray-100 p-4 rounded-lg shadow text-black">
-            <h2 className="text-xl font-semibold mb-3">Response:</h2>
+          <div className="bg-gray-100 p-4 rounded-lg shadow-lg text-gray-800">
+            <h2 className="text-2xl font-semibold mb-3 text-teal-700">Response:</h2>
             <div className="mb-4 relative">
               <button 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full text-left bg-white border rounded-lg p-2 flex justify-between items-center"
+                className="w-full text-left bg-teal-50 border rounded-lg p-2 flex justify-between items-center shadow"
               >
                 <span>Toggle Sections</span>
                 <span>{isDropdownOpen ? '▲' : '▼'}</span>
@@ -114,16 +114,16 @@ const Home: React.FC = () => {
               {visibleSections.includes('characters') && renderSection('Characters', response.alphabets)}
               {visibleSections.includes('numbers') && renderSection('Numbers', response.numbers)}
               {visibleSections.includes('highestAlphabet') && (
-                <div className="bg-white p-3 rounded shadow">
-                  <h3 className="font-medium text-blue-600">Highest Alphabet:</h3>
+                <div className="bg-gray-200 p-3 rounded-lg shadow">
+                  <h3 className="font-semibold text-teal-700">Highest Alphabet:</h3>
                   <p>{response.highest_alphabet && response.highest_alphabet.length > 0 ? response.highest_alphabet[0] : 'None'}</p>
                 </div>
               )}
             </div>
             <div className="mt-4 text-sm text-gray-600">
-              <p>User ID: {response.user_id || 'N/A'}</p>
-              <p>Email: {response.email || 'N/A'}</p>
-              <p>Roll Number: {response.roll_number || 'N/A'}</p>
+              <p><strong>User ID:</strong> {response.user_id || 'N/A'}</p>
+              <p><strong>Email:</strong> {response.email || 'N/A'}</p>
+              <p><strong>Roll Number:</strong> {response.roll_number || 'N/A'}</p>
             </div>
           </div>
         )}
