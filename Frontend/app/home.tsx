@@ -57,7 +57,7 @@ const Home: React.FC = () => {
   const renderSection = (title: string, data: string[] | undefined) => (
     <div className="bg-indigo-100 p-4 rounded-lg shadow-md">
       <h3 className="font-semibold text-indigo-700 text-lg">{title}:</h3>
-      <p>{data && data.length > 0 ? data.join(', ') : 'None'}</p>
+      <p className='text-black'>{data && data.length > 0 ? data.join(', ') : 'None'}</p>
     </div>
   );
 
@@ -92,18 +92,19 @@ const Home: React.FC = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="w-full text-left bg-indigo-50 border rounded-lg p-2 flex justify-between items-center shadow"
               >
-                <span>Toggle Sections</span>
+                <span className='text-black'>Toggle Sections</span>
                 <span>{isDropdownOpen ? '▲' : '▼'}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute z-10 w-full bg-white border rounded-lg mt-1 shadow-lg">
                   {sections.map(section => (
-                    <label key={section.value} className="flex items-center p-2 hover:bg-gray-100">
+                    <label key={section.value} className="flex items-center p-2 hover:bg-gray-100 text-black">
                       <input
+                      className='text-black mr-2'
                         type="checkbox"
                         checked={visibleSections.includes(section.value)}
                         onChange={() => toggleSection(section.value)}
-                        className="mr-2"
+        
                       />
                       {section.label}
                     </label>
@@ -117,7 +118,7 @@ const Home: React.FC = () => {
               {visibleSections.includes('highestAlphabet') && (
                 <div className="bg-indigo-100 p-4 rounded-lg shadow-md">
                   <h3 className="font-semibold text-indigo-700 text-lg">Highest Alphabet:</h3>
-                  <p>{response.highest_alphabet && response.highest_alphabet.length > 0 ? response.highest_alphabet[0] : 'None'}</p>
+                  <p className='text-black'>{response.highest_alphabet && response.highest_alphabet.length > 0 ? response.highest_alphabet[0] : 'None'}</p>
                 </div>
               )}
             </div>
