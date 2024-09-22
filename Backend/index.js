@@ -13,10 +13,10 @@ app.use(morgan('dev'));
 const BFHL = require('./routes/BFHLroute');
 
 const user = {
-  fullName: 'Bishal De',
-  dob: '10042003', // Use string for consistent formatting
-  email: 'bb3477@srmist.edu.in',
-  rollNumber: 'RA2111026010231'
+  fullName: 'Keshavi Sharma',
+  dob: '28102002',
+  email: 'ks0968@srmist.edu.in',
+  rollNumber: 'RA2111026010234'
 };
 
 // Helper function to generate user_id

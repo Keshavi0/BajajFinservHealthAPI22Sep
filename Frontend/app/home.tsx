@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import './App.css'; // Make sure to import your CSS file
 
 interface ApiResponse {
   is_success: boolean;
@@ -54,27 +55,27 @@ const Home: React.FC = () => {
   };
 
   const renderSection = (title: string, data: string[] | undefined) => (
-    <div className="bg-blue-100 p-3 rounded-lg shadow">
-      <h3 className="font-semibold text-blue-600">{title}:</h3>
+    <div className="bg-indigo-100 p-4 rounded-lg shadow-md">
+      <h3 className="font-semibold text-indigo-700 text-lg">{title}:</h3>
       <p>{data && data.length > 0 ? data.join(', ') : 'None'}</p>
     </div>
   );
 
   return (
     <div className="container mx-auto p-4 max-w-2xl font-sans">
-      <main>
-        <h1 className="text-4xl font-bold mb-6 text-center text-blue-600">Data Processing App</h1>
-        <form onSubmit={handleSubmit} className="mb-6">
+      <main className="bg-white shadow-lg rounded-lg p-6">
+        <h1 className="text-4xl font-bold mb-6 text-center text-indigo-700">Data Processing App</h1>
+        <form onSubmit={handleSubmit} className="mb-6 flex flex-col">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='Enter JSON (e.g., { "data": ["A","C","z"] })'
-            className="w-full p-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black font-light bg-blue-50"
+            className="w-full p-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-black font-light bg-indigo-50"
             rows={4}
           />
           <button 
             type="submit" 
-            className="mt-3 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out"
+            className="mt-3 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out"
             disabled={isLoading}
           >
             {isLoading ? 'Processing...' : 'Submit'}
@@ -84,12 +85,12 @@ const Home: React.FC = () => {
         {error && <p className="text-red-600 mb-4 p-3 bg-red-100 rounded-lg">{error}</p>}
 
         {response && (
-          <div className="bg-gray-100 p-4 rounded-lg shadow-lg text-gray-800">
-            <h2 className="text-2xl font-semibold mb-3 text-blue-600">Response:</h2>
+          <div className="mt-4">
+            <h2 className="text-2xl font-semibold mb-3 text-indigo-700">Response:</h2>
             <div className="mb-4 relative">
               <button 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full text-left bg-blue-50 border rounded-lg p-2 flex justify-between items-center shadow"
+                className="w-full text-left bg-indigo-50 border rounded-lg p-2 flex justify-between items-center shadow"
               >
                 <span>Toggle Sections</span>
                 <span>{isDropdownOpen ? '▲' : '▼'}</span>
@@ -114,8 +115,8 @@ const Home: React.FC = () => {
               {visibleSections.includes('characters') && renderSection('Characters', response.alphabets)}
               {visibleSections.includes('numbers') && renderSection('Numbers', response.numbers)}
               {visibleSections.includes('highestAlphabet') && (
-                <div className="bg-blue-100 p-3 rounded-lg shadow">
-                  <h3 className="font-semibold text-blue-600">Highest Alphabet:</h3>
+                <div className="bg-indigo-100 p-4 rounded-lg shadow-md">
+                  <h3 className="font-semibold text-indigo-700 text-lg">Highest Alphabet:</h3>
                   <p>{response.highest_alphabet && response.highest_alphabet.length > 0 ? response.highest_alphabet[0] : 'None'}</p>
                 </div>
               )}
