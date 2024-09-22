@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
     user_id: generateUserId(user.fullName, user.dob),
     email: user.email,
     roll_number: user.rollNumber,
-    message: `Bajaj Finserv Health | Fullstack Qualifier | SRM | 22nd September 24`,
+    info: `Bajaj Finserv Health-22nd September 24`,
   };
   res.status(200).json(Data);
 });
